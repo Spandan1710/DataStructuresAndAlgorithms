@@ -1,7 +1,5 @@
 package algorithms.sorting;
 
-import api.Sort;
-
 import java.util.List;
 
 /**
@@ -12,26 +10,25 @@ import java.util.List;
  * for sorting purpose should be avoide. Can be used in other sorting algorithms
  * like Merge Sort, Quick Sort etc.</p>
  */
-public class InsertionSort<T extends Comparable> implements Sort<T>    {
-    /**
-     *
-     * @param list a list of Comparable objects. Comparable object can be compared against each other for sorting
-     * @return list with objects arranged in sorted order.
-     */
-   @Override
-    public List<T> toSort(List<T> list) {
+public class InsertionSort {
 
-        for(int i = 0; i< list.size();i++){
+    private InsertionSort() {
+        throw new AssertionError();
+    }
+
+    /**
+     * @param list a list of Comparable objects. Comparable object can be compared against each other for sorting
+     */
+    public static <T extends Comparable<? super T>> void toSort(List<T> list) {
+
+        for (int i = 0; i < list.size(); i++) {
             T key = list.get(i);
-            for(int j = i-1; j>=0;j--){
-                if(list.get(j).compareTo(key) == 1){
-                    list.set(j+1, list.get(j));
-                    continue;
+            for (int j = i - 1; j >= 0; j--) {
+                if (list.get(j).compareTo(key) > 0) {
+                    list.set(j + 1, list.get(j));
+                    list.set(j, key);
                 }
-                list.set(j+1,key);
-                break;
             }
         }
-        return list;
     }
 }
